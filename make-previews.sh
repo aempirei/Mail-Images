@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$USER" == "" ]; then
+	USER=`whoami`
+	PATH=$PATH:/home/$USER/bin:/usr/local/bin
+fi
+
 if [ "$1" == "--full" ]; then
 	full=1
 else
