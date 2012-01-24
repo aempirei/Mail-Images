@@ -26,7 +26,15 @@ else
 		fn=`basename "$full_fn"`
 		boxify <<<"processing $full_fn"
 		./mime-explode.pl "$postdir/$fn" < "$full_fn"
+		cp -v "$full_fn" "$postdir/$fn/rfc822.txt"
 	done
 fi
 
 rm -rv "$mboxdir"
+
+find messages -type d -exec rmdir -vp {} \;
+
+boxify <<<"Making message previews."
+./make-previews.sh
+boxify <<<"Making message folders."
+./make-folders.sh

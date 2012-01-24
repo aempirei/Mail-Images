@@ -20,8 +20,8 @@ my $explode = MIME::Explode->new(
   output_dir         => $target_dir,
   mkdir              => 0755,
   decode_subject     => 1,
-  check_content_type => 1,
-  content_types      => ["image/gif", "image/jpeg", "image/bmp"],
+  check_content_type => 0,
+  content_types      => ["image/gif", "image/jpeg", "image/bmp", "text/plain", "text/html" ],
   types_action       => "include"
 );
 
@@ -32,3 +32,17 @@ my $headers = $explode->parse(\*STDIN, \*OUTPUT);
 close(OUTPUT);
 
 unlink $temp_fn;
+
+#
+# create subject file
+#
+
+my $subject_fn = "$target_dir/subject.txt";
+
+open(SUBJECT, ">$subject_fn") or die("Couldn't open $subject_fn for writing: $!\n");
+
+my $subject = join("", @{$headers->{'0.0'}->{subject}->{value}});
+
+print SUBJECT $subject."\n";
+
+close(SUBJECT);
