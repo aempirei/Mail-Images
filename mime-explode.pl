@@ -20,9 +20,9 @@ my $explode = MIME::Explode->new(
   output_dir         => $target_dir,
   mkdir              => 0755,
   decode_subject     => 1,
-  check_content_type => 0,
-  content_types      => ["image/gif", "image/jpeg", "image/bmp", "text/plain", "text/html" ],
-  types_action       => "include"
+  # check_content_type => 0,
+  # content_types      => ["image/gif", "image/jpeg", "image/bmp", "image/png", "text/plain", "text/html" ],
+  # types_action       => "include"
 );
 
 open(OUTPUT, ">$temp_fn") or die("Couldn't open file.tmp for writing: $!\n");
