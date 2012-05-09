@@ -11,7 +11,7 @@ else
 	full=0
 fi
 
-exts="jpg.djpeg gif.giftopnm png.pngtopnm bmp.bmptopng tif.tifftopnm"
+exts="jpg.djpeg gif.giftopnm png.pngtopnm bmp.bmptoppm tif.tifftopnm"
 
 extract () {
 	cat "$1/rfc822.txt" | pextract "^$2:\s*(.*)" | tail -1

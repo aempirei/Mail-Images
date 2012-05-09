@@ -56,7 +56,7 @@ function initialize {
 	fi
 
 	lockfile "$lockfile"
-	trap cleanup SIGINT SIGALRM
+	trap cleanup SIGALRM
 }
 
 initialize

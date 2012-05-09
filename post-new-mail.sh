@@ -32,9 +32,22 @@ fi
 
 rm -rv "$mboxdir"
 
+boxify <<<"Removing CRON messages."
+
+find messages -type f -name rfc822.txt |  while read fn; do
+	dir=`dirname "$fn"`
+	cat "$fn" | grep -q '^From root@modron' && rm -rv "$dir"
+done
+
 find messages -type d -exec rmdir -vp {} \;
 
 boxify <<<"Making message previews."
 ./make-previews.sh
 boxify <<<"Making message folders."
 ./make-folders.sh
+
+boxify <<<"Cleaning up junk folders."
+
+find messages -type d -exec rmdir -vp {} \;
+
+
