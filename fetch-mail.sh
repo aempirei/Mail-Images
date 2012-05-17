@@ -36,6 +36,7 @@ function split_mbox {
 function cleanup {
 	boxify <<<$FUNCNAME
 	rm -vf "$lockfile"
+	exit
 }
 
 function mbox_count {
@@ -56,7 +57,6 @@ function initialize {
 	fi
 
 	lockfile "$lockfile"
-	trap cleanup SIGALRM
 }
 
 initialize

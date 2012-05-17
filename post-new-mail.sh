@@ -5,7 +5,31 @@ if [ "$USER" == "" ]; then
 	PATH=$PATH:/home/$USER/bin
 fi
 
-./fetch-mail.sh
+./fetch-mail.sh &
+
+child=$!
+
+(
+	sleep 30
+
+	if [ -d /proc/$child ]; then
+		kill -9 $child
+	fi
+
+	rm -f ./lockfile
+) &
+
+sleeper=$!
+
+wait $child
+
+if [ $? -ne 0 ]; then
+	exit
+fi
+
+if [ -d /proc/$sleeper ]; then
+	kill -9 $sleeper
+fi
 
 mboxdir='./aempirei.rfc822-emails.d'
 postdir='./messages/'`date '+%Y-%m-%d_%H:%M:%S'`
